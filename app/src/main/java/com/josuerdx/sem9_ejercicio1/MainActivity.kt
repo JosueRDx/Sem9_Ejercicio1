@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.josuerdx.sem9_ejercicio1.ui.screens.PokemonDetailScreen
 import com.josuerdx.sem9_ejercicio1.ui.screens.PokemonListScreen
 import com.josuerdx.sem9_ejercicio1.ui.theme.Sem9_Ejercicio1Theme
 
@@ -18,8 +20,14 @@ class MainActivity : ComponentActivity() {
             Sem9_Ejercicio1Theme {
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = "pokemon_list") {
-                    composable("pokemon_list") { PokemonListScreen(navController) }
-                    // Aquí se añadirá la pantalla de detalles
+                    composable("pokemon_list") {
+                        PokemonListScreen(navController)
+                    }
+                    composable("pokemon_detail/{pokemonName}") { backStackEntry ->
+                        val pokemonName = backStackEntry.arguments?.getString("pokemonName") ?: ""
+                        PokemonDetailScreen(pokemonName)
+                    }
+                }
             }
         }
     }
