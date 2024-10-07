@@ -1,5 +1,6 @@
 package com.josuerdx.sem9_ejercicio1.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.josuerdx.sem9_ejercicio1.models.Pokemon
 import com.josuerdx.sem9_ejercicio1.network.RetrofitInstance
@@ -27,7 +29,12 @@ fun PokemonListScreen(navController: NavHostController) {
 
     LazyColumn {
         items(pokemons) { pokemon ->
-            Text(text = pokemon.name)
+            Text(
+                text = pokemon.name,
+                modifier = Modifier.clickable {
+                    navController.navigate("pokemon_detail/${pokemon.name}")
+                }
+            )
         }
     }
 }
